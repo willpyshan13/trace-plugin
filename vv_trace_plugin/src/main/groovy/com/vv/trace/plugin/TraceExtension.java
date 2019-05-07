@@ -1,0 +1,28 @@
+package com.vv.trace.plugin;
+
+import com.quinn.hunter.transform.RunVariant;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by quinn on 27/06/2017.
+ * whitelist is prior to to blacklist
+ */
+public class TraceExtension {
+
+    public RunVariant runVariant = RunVariant.ALWAYS;
+    public List<String> whitelist = new ArrayList<>();
+    public List<String> blacklist = new ArrayList<>();
+    public boolean duplcatedClassSafeMode = false;
+
+    @Override
+    public String toString() {
+        return "TraceExtension{" +
+                "runVariant=" + runVariant +
+                ", whitelist=" + whitelist +
+                ", blacklist=" + blacklist +
+                ", duplcatedClassSafeMode=" + duplcatedClassSafeMode +
+                '}';
+    }
+}

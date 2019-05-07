@@ -33,7 +33,17 @@ import java.util.Locale;
  */
 public class AutoTrackHelper {
 
+    private static final String TAG = "TraceTag";
+
     private static SparseArray<Long> eventTimestamp = new SparseArray<>();
+
+    public static void printActivityInfo(Activity activity,int type,String methodName){
+        Log.d(TAG,activity.getLocalClassName()+"===="+methodName+"  type="+type);
+    }
+
+    public static void printLog(String activity){
+        Log.d(TAG,activity);
+    }
 
     /**
      * 防抖动，超过一定时间才算数

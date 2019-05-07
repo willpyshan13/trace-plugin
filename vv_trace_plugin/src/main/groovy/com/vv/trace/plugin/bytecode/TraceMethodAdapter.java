@@ -18,24 +18,21 @@ public final class TraceMethodAdapter extends LocalVariablesSorter implements Op
     private boolean isHasTracked;
     private int timeLocalIndex = 0;
 
-    public TraceMethodAdapter(String name,String className, int access, String desc, MethodVisitor mv) {
+    public TraceMethodAdapter(String name,String methodName, int access, String desc, MethodVisitor mv) {
         super(Opcodes.ASM5, access, desc, mv);
-        this.methodName = name;
-        this.className = className;
+        this.methodName = methodName;
+        this.className = name;
         this.desc = desc;
     }
 
     @Override
     public void visitCode() {
         super.visitCode();
-//        mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
-//        startVarIndex = newLocal(Type.LONG_TYPE);
-//        mv.visitVarInsn(Opcodes.LSTORE, startVarIndex);
     }
 
     @Override
     public void visitInsn(int opcode) {
-//        Log.d(TAG,"className="+className+"  methodName="+methodName+"  desc="+desc);
+        Log.d(TAG,"className="+className+"  methodName="+methodName+"  desc="+desc);
         if (methodName.equals("onClick")&&desc.equals("(Landroid/view/View;)V")){
             Log.d(TAG,"className="+className+"  methodName="+methodName+"  desc="+desc);
             Label l0 = new Label();
@@ -44,44 +41,18 @@ public final class TraceMethodAdapter extends LocalVariablesSorter implements Op
             mv.visitVarInsn(ALOAD, 1);
             mv.visitMethodInsn(INVOKESTATIC, "com/vv/trace/AutoTrackHelper", "trackViewOnClick", "(Landroid/view/View;)V", false);
             isHasTracked = true;
-
-//            mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
-//            mv.visitVarInsn(LLOAD, timeLocalIndex);
-//            mv.visitInsn(LSUB);
-//            mv.visitVarInsn(LSTORE, timeLocalIndex);
-//
-//            int stringBuilderIndex = newLocal(Type.getType("java/lang/StringBuilder"));
-//            mv.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
-//            mv.visitInsn(Opcodes.DUP);
-//            mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
-//            mv.visitVarInsn(Opcodes.ASTORE, stringBuilderIndex);//
-//            mv.visitVarInsn(Opcodes.ALOAD, stringBuilderIndex);
-//            mv.visitLdcInsn(className + "." + methodName + " time:");
-//            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
-//            mv.visitInsn(Opcodes.POP);
-//            mv.visitVarInsn(Opcodes.ALOAD, stringBuilderIndex);
-//            mv.visitVarInsn(Opcodes.LLOAD, timeLocalIndex);
-//            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
-//            mv.visitInsn(Opcodes.POP);
-//            mv.visitLdcInsn("TracePlugin");
-//            mv.visitVarInsn(Opcodes.ALOAD, stringBuilderIndex);
-//            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
-//            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "android/util/Log", "d", "(Ljava/lang/String;Ljava/lang/String;)I", false);
-//            mv.visitInsn(Opcodes.POP);//
-
+        }else if(methodName.contains("onActivity")&&className.contains("Application")){
+            mv.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
+            mv.visitInsn(Opcodes.DUP);
+            mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+            mv.visitVarInsn(Opcodes.ALOAD, 1);
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "android/app/Activity", "getLocalClassName", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitLdcInsn("/"+methodName);
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "com/vv/trace/AutoTrackHelper", "printLog", "(Ljava/lang/String;)V", false);
         }
-
-//        if ((opcode >= IRETURN && opcode <= RETURN) || opcode == ATHROW) {
-//            mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "currentTimeMillis", "()J", false);
-//            mv.visitVarInsn(LLOAD, startVarIndex);
-//            mv.visitInsn(LSUB);
-//            int index = newLocal(Type.LONG_TYPE);
-//            mv.visitVarInsn(LSTORE, index);
-//            mv.visitLdcInsn(methodName);
-//            mv.visitVarInsn(LLOAD, index);
-//            mv.visitMethodInsn(INVOKESTATIC, "com/hunter/library/timing/BlockManager", "timingMethod", "(Ljava/lang/String;J)V", false);
-//        }
-
         super.visitInsn(opcode);
     }
 

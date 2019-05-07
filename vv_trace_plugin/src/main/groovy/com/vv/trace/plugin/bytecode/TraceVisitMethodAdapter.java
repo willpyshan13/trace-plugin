@@ -1,6 +1,6 @@
 package com.vv.trace.plugin.bytecode;
 
-import com.vv.trace.plugin.Log;
+import com.android.ddmlib.Log;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.commons.AdviceAdapter;

@@ -23,22 +23,22 @@ repositories {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'trace-transform'
+    bintrayName = 'hunter-transform'
 
-    publishedGroupId = 'com.vv.trace'
-    libraryName = 'trace-transform'
-    artifact = 'trace-transform'
+    publishedGroupId = 'com.quinn.hunter'
+    libraryName = 'hunter-transform'
+    artifact = 'hunter-transform'
 
     libraryDescription = 'A fast, incremental, cocurrent framework to develop compile plugin for android project'
 
-    siteUrl = 'http://www.vv.com'
+    siteUrl = 'https://github.com/Leaking/Hunter'
     gitUrl = 'https://github.com/Leaking/Hunter.git'
 
     libraryVersion = '0.9.3'
 
-    developerId = 'vv'
-    developerName = 'trace'
-    developerEmail = 'pengyushan@vv.cn'
+    developerId = 'Leaking'
+    developerName = 'QuinnChen'
+    developerEmail = 'chenhuazhaoao@gmail.com'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
@@ -47,3 +47,18 @@ ext {
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+//apply plugin: 'maven'
+//
+//group='com.quinn.hunter'
+//version='1.0.0'
+//
+//def localRepoURL = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+//
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: localRepoURL)
+//        }
+//    }
+//}

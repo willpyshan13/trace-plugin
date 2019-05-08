@@ -13,9 +13,9 @@ import com.android.build.api.transform.TransformOutputProvider;
 import com.android.build.gradle.internal.pipeline.TransformManager;
 import com.android.ide.common.internal.WaitableExecutor;
 import com.google.common.io.Files;
-import com.quinn.hunter.transform.asm.BaseWeaver;
-import com.quinn.hunter.transform.asm.ClassLoaderHelper;
 
+import com.vv.transform.asm.BaseWeaver;
+import com.vv.transform.asm.ClassLoaderHelper;
 import org.apache.commons.io.FileUtils;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;

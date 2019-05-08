@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/trace-transform" />
             <option value="$PROJECT_DIR$/vv_trace_library" />
             <option value="$PROJECT_DIR$/vv_trace_plugin" />
             <option value="$PROJECT_DIR$/vv_trave_transform" />

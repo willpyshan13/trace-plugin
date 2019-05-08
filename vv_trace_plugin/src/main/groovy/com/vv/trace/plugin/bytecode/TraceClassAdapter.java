@@ -1,12 +1,8 @@
 package com.vv.trace.plugin.bytecode;
 
-import com.vv.trace.plugin.Log;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
-
-import java.io.File;
-import java.util.Arrays;
 
 public final class TraceClassAdapter extends ClassVisitor{
 

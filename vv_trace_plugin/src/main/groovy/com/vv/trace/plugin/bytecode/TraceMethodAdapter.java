@@ -32,16 +32,14 @@ public final class TraceMethodAdapter extends LocalVariablesSorter implements Op
 
     @Override
     public void visitInsn(int opcode) {
-        Log.d(TAG,"className="+className+"  methodName="+methodName+"  desc="+desc);
         if (methodName.equals("onClick")&&desc.equals("(Landroid/view/View;)V")){
-            Log.d(TAG,"className="+className+"  methodName="+methodName+"  desc="+desc);
             Label l0 = new Label();
             mv.visitLabel(l0);
             mv.visitLineNumber(35, l0);
             mv.visitVarInsn(ALOAD, 1);
-            mv.visitMethodInsn(INVOKESTATIC, "com/vv/trace/AutoTrackHelper", "trackViewOnClick", "(Landroid/view/View;)V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/vv/life/mvvmhabit/trace/AutoTrackHelper", "trackViewOnClick", "(Landroid/view/View;)V", false);
             isHasTracked = true;
-        }else if(methodName.contains("onActivity")&&className.contains("Application")){
+        }else if(methodName.contains("onActivityCreate")&&className.contains("Application")||methodName.contains("onActivityDestroyed")&&className.contains("Application")){
             mv.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
             mv.visitInsn(Opcodes.DUP);
             mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
@@ -51,7 +49,17 @@ public final class TraceMethodAdapter extends LocalVariablesSorter implements Op
             mv.visitLdcInsn("/"+methodName);
             mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
             mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
-            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "com/vv/trace/AutoTrackHelper", "printLog", "(Ljava/lang/String;)V", false);
+            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "com/vv/life/mvvmhabit/trace/AutoTrackHelper", "printLog", "(Ljava/lang/String;)V", false);
+        }else if(methodName.equals("accept")&&className.contains("view/ViewAdapter")){
+            Log.d(TAG,"className="+className+"  methodName="+methodName+"  desc="+desc);
+            mv.visitCode();
+            Label l0 = new Label();
+            mv.visitLabel(l0);
+            mv.visitLineNumber(47, l0);
+            mv.visitVarInsn(Opcodes.ALOAD, 0);
+            mv.visitFieldInsn(Opcodes.GETFIELD, className, "val$view", "Landroid/view/View;");
+            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "com/vv/life/mvvmhabit/trace/AutoTrackHelper", "trackViewOnClick", "(Landroid/view/View;)V", false);
+
         }
         super.visitInsn(opcode);
     }
